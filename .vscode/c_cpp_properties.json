@@ -2,20 +2,18 @@
   "version": 4,
   "configurations": [
     {
-      "name": "macOS SDL2",
+      "name": "macos-clang-arm64",
       "includePath": [
-        "${workspaceFolder}/**",
-        "${workspaceFolder}/SDL2/include",
-        "/opt/homebrew/include",
-        "/opt/homebrew/include/SDL2",
-        "/usr/local/include",
-        "/usr/local/include/SDL2"
+        "${workspaceFolder}/**"
       ],
       "defines": [],
-      "macFrameworkPath": ["/System/Library/Frameworks", "/Library/Frameworks"],
-      "compilerPath": "/usr/bin/clang++",
-      "cStandard": "c17",
-      "cppStandard": "c++17",
+      "macFrameworkPath": [
+        "/System/Library/Frameworks",
+        "/Library/Frameworks"
+      ],
+      "compilerPath": "/usr/bin/clang",
+      "cStandard": "${default}",
+      "cppStandard": "${default}",
       "intelliSenseMode": "macos-clang-arm64"
     }
   ]

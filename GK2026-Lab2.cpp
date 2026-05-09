@@ -54,6 +54,19 @@ void zaktualizujTabliceBayera2()
                     zaktualizowanaTablicaBayera2[y][x] =
                         (tablicaBayera2[y][x] * podzial) - podzial / 2;
                 }
+                for (int x = 0; x < rozmiar; y++)
+                {
+                    cout << tablicaBayera2[y][x] << " ";
+                }
+            }
+            cout << endl;
+            for (int x = 0; x < rozmiar; x++)
+            {
+                cout << endl;
+                for (int x = 0; x < rozmiar; x++)
+                {
+                    cout << zaktualizowanaTablicaBayera2[y][x] << " ";
+                }
             }
         }
     }
