@@ -28,24 +28,49 @@ void Funkcja6();
 void Funkcja7();
 void Funkcja8();
 void Funkcja9();
+void zaktualizujTabliceBayera2();
 
 void Funkcja1()
 {
-
-    //...
+    int tablicaBayera2[2][2] = {{0, 2},
+                                {3, 1}};
+    float zaktualizowanaTablicaBayera2[2][2];
     SDL_Color kolor;
     Uint8 szary;
     Uint8 piksel;
+
     for (int y = 0; y < 200; y++)
     {
         for (int x = 0; x < 320; x++)
         {
             kolor = getPixel(x, y);
+
             szary = 0.299 * kolor.r + 0.587 * kolor.g + 0.114 * kolor.b;
+
             setPixel(x, y, szary, szary, szary);
+
+            if (szary > 127)
+                piksel = 255;
+            else
+                piksel = 0;
+
+            setPixel(x + szerokosc / 2, y, piksel, piksel, piksel);
         }
     }
 
+    void zaktualizujTabliceBayera2()
+    {
+        int zakres = 256;
+        int rozmiar = 2;
+        float podzial = zakres * 1.0 / (rozmiar * rozmiar);
+        for (int y = 0; y < rozmiar; y++)
+        {
+            for (int x = 0; x < rozmiar; x++)
+            {
+                zaktualizowanaTablicaBayera2[y][x] = (tablicaBayera2[y][x] * podzial) - podzial / 2;
+            }
+        }
+    }
     SDL_UpdateWindowSurface(window);
 }
 
