@@ -47,6 +47,14 @@ void zaktualizujTabliceBayera2()
         {
             zaktualizowanaTablicaBayera2[y][x] =
                 (tablicaBayera2[y][x] * podzial) - podzial / 2;
+            for (int i = 0; i < rozmiar; y++)
+            {
+                for (int x = 0; x < rozmiar; x++)
+                {
+                    zaktualizowanaTablicaBayera2[y][x] =
+                        (tablicaBayera2[y][x] * podzial) - podzial / 2;
+                }
+            }
         }
     }
 }
