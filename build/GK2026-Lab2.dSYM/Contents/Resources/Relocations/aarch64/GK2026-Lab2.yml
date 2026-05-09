@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     'build/GK2026-Lab2'
+relocations:     []
+...

@@ -1,0 +1,32 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build GK2026-Lab2",
+      "type": "shell",
+      "command": "mkdir -p build && clang++ -std=c++17 -g GK2026-Lab2.cpp -I/opt/homebrew/include -I/usr/local/include -ISDL2/include -o build/GK2026-Lab2 $(sdl2-config --libs)",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"],
+      "detail": "Kompilacja projektu GK2026-Lab2 z SDL2 na macOS"
+    },
+    {
+      "label": "Run GK2026-Lab2",
+      "type": "shell",
+      "command": "./build/GK2026-Lab2",
+      "dependsOn": "Build GK2026-Lab2",
+      "group": "test",
+      "problemMatcher": [],
+      "detail": "Uruchomienie programu GK2026-Lab2"
+    },
+    {
+      "label": "Clean GK2026-Lab2",
+      "type": "shell",
+      "command": "rm -rf build",
+      "problemMatcher": [],
+      "detail": "Usunięcie katalogu build"
+    }
+  ]
+}
