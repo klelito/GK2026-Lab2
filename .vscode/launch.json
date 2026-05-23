@@ -2,23 +2,12 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug GK2026-Lab2",
-      "type": "lldb",
-      "request": "launch",
-      "program": "${workspaceFolder}/build/GK2026-Lab2",
-      "args": [],
-      "cwd": "${workspaceFolder}",
-      "preLaunchTask": "Build GK2026-Lab2",
-      "stopOnEntry": false,
-      "console": "integratedTerminal"
-    },
-    {
       "name": "C/C++ Runner: Debug Session",
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/klelito/Desktop/INFORMATYKA W INŻYNIERII KOMPUTEROWEJ/SEMESTR/S4v2XD2026/Bazy Danych/LK2/OneDrive_1_9.05.2026/GK2026-Lab2",
-      "program": "/Users/klelito/Desktop/INFORMATYKA W INŻYNIERII KOMPUTEROWEJ/SEMESTR/S4v2XD2026/Bazy Danych/LK2/OneDrive_1_9.05.2026/GK2026-Lab2/build/Debug/outDebug"
+      "cwd": "/Users/klelito/Desktop/INFORMATYKA W INŻYNIERII KOMPUTEROWEJ/SEMESTR/S4v2XD2026/Grafika Komputerowa/LAB2/GK2026-Lab2",
+      "program": "/Users/klelito/Desktop/INFORMATYKA W INŻYNIERII KOMPUTEROWEJ/SEMESTR/S4v2XD2026/Grafika Komputerowa/LAB2/GK2026-Lab2/build/Debug/outDebug"
     }
   ]
 }

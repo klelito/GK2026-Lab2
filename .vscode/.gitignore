@@ -1,0 +1,65 @@
+# =========================
+# Build / kompilacja
+# =========================
+build/
+Debug/
+Release/
+out/
+bin/
+obj/
+
+# Pliki wykonywalne
+*.exe
+*.out
+*.app
+*.dSYM/
+GK2026-Lab*
+gk2026
+program
+
+# Pliki obiektowe / biblioteki
+*.o
+*.obj
+*.a
+*.so
+*.dylib
+*.dll
+*.lib
+
+# =========================
+# VS Code
+# =========================
+.vscode/*
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/c_cpp_properties.json
+!.vscode/settings.json
+
+# =========================
+# macOS
+# =========================
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# =========================
+# Tymczasowe / backupy
+# =========================
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+
+# =========================
+# CMake, jeśli kiedyś użyjesz
+# =========================
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# =========================
+# Pliki użytkownika / IDE
+# =========================
+*.code-workspace
