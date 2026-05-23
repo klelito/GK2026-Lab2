@@ -29,11 +29,52 @@ void Funkcja7();
 void Funkcja8();
 void Funkcja9();
 void zaktualizujTabliceBayera2();
-
+void zaktualizujTabliceBayera4();
+// TABLICE
 int tablicaBayera2[2][2] = {{0, 2},
                             {3, 1}};
+int tablicaBayera4[4][4] = {{6, 14, 8, 16},
+                            {10, 2, 12, 4},
+                            {7, 15, 5, 13},
+                            {11, 3, 9, 1}};
 
 float zaktualizowanaTablicaBayera2[2][2];
+float zaktualizowanaTablicaBayera4[4][4];
+
+void zaktualizujTabliceBayera4()
+{
+    int zakres = 256;
+    int rozmiar = 4;
+    float podzial = zakres * 1.0f / (rozmiar * rozmiar);
+
+    for (int y = 0; y < rozmiar; y++)
+    {
+        for (int x = 0; x < rozmiar; x++)
+        {
+            zaktualizowanaTablicaBayera4[y][x] = (tablicaBayera4[y][x] * podzial) - podzial / 2;
+        }
+    }
+
+    cout << "Tablica Bayera 4x4:" << endl;
+    for (int y = 0; y < rozmiar; y++)
+    {
+        for (int x = 0; x < rozmiar; x++)
+        {
+            cout << tablicaBayera4[y][x] << " ";
+        }
+        cout << endl;
+    }
+
+    cout << "Zaktualizowana tablica Bayera 4x4:" << endl;
+    for (int y = 0; y < rozmiar; y++)
+    {
+        for (int x = 0; x < rozmiar; x++)
+        {
+            cout << zaktualizowanaTablicaBayera4[y][x] << " ";
+        }
+        cout << endl;
+    }
+}
 
 void zaktualizujTabliceBayera2()
 {
@@ -135,15 +176,54 @@ void Funkcja2()
 
 void Funkcja3()
 {
+    int rozmiar = 4;
+    zaktualizujTabliceBayera4();
+    SDL_Color kolor;
+    Uint8 szary;
+    Uint8 piksel;
+    Uint8 tablica;
 
+    for (int y = 0; y < 200; y++)
+    {
+        for (int x = 0; x < 320; x++)
+        {
+            kolor = getPixel(x, y);
+            szary = 0.299 * kolor.r + 0.587 * kolor.g + 0.114 * kolor.b;
+            setPixel(x, y, szary, szary, szary);
+            tablica = zaktualizowanaTablicaBayera4[y % rozmiar][x % rozmiar];
+            if (szary > tablica)
+                piksel = 255;
+            else
+                piksel = 0;
+            setPixel(x + szerokosc / 2, y, piksel, piksel, piksel);
+        }
+    }
     //...
 
     SDL_UpdateWindowSurface(window);
 }
-
+// algorytm Floyd-Steinberg
 void Funkcja4()
 {
+    SDL_Color kolor;
+    int szary;
+    Uint8 szaryOrg;
+    Uint8 piksel;
+    Uint8 przesuniecie = 1;
+    float bledy[(szerokosc / 2) + 2][wysokosc + 2];
+    memset(bledy, 0, sizeof(bledy));
+    int blad = 0;
 
+    for (int y = 0; y < 200; y++)
+    {
+        for (int x = 0; x < 320; x++)
+        {
+            kolor = getPixel(x, y);
+            szaryOrg = 0.299 * kolor.r + 0.587 * kolor.g + 0.114 * kolor.b;
+            szary = szaryOrg + bledy[x + przesuniecie][y];
+            setPixel(x, y, szaryOrg, szaryOrg, szaryOrg);
+        }
+    }
     //...
 
     SDL_UpdateWindowSurface(window);
