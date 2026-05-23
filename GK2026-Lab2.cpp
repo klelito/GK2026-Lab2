@@ -39,7 +39,7 @@ void zaktualizujTabliceBayera2()
 {
     int zakres = 256;
     int rozmiar = 2;
-    float podzial = zakres * 1.0 / (rozmiar * rozmiar);
+    float podzial = zakres * 1.0f / (rozmiar * rozmiar);
 
     for (int y = 0; y < rozmiar; y++)
     {
@@ -47,28 +47,27 @@ void zaktualizujTabliceBayera2()
         {
             zaktualizowanaTablicaBayera2[y][x] =
                 (tablicaBayera2[y][x] * podzial) - podzial / 2;
-            for (int i = 0; i < rozmiar; y++)
-            {
-                for (int x = 0; x < rozmiar; x++)
-                {
-                    zaktualizowanaTablicaBayera2[y][x] =
-                        (tablicaBayera2[y][x] * podzial) - podzial / 2;
-                }
-                for (int x = 0; x < rozmiar; y++)
-                {
-                    cout << tablicaBayera2[y][x] << " ";
-                }
-            }
-            cout << endl;
-            for (int x = 0; x < rozmiar; x++)
-            {
-                cout << endl;
-                for (int x = 0; x < rozmiar; x++)
-                {
-                    cout << zaktualizowanaTablicaBayera2[y][x] << " ";
-                }
-            }
         }
+    }
+
+    cout << "Tablica Bayera 2x2:" << endl;
+    for (int y = 0; y < rozmiar; y++)
+    {
+        for (int x = 0; x < rozmiar; x++)
+        {
+            cout << tablicaBayera2[y][x] << " ";
+        }
+        cout << endl;
+    }
+
+    cout << "Zaktualizowana tablica Bayera 2x2:" << endl;
+    for (int y = 0; y < rozmiar; y++)
+    {
+        for (int x = 0; x < rozmiar; x++)
+        {
+            cout << zaktualizowanaTablicaBayera2[y][x] << " ";
+        }
+        cout << endl;
     }
 }
 
@@ -385,7 +384,7 @@ int main(int argc, char *argv[])
     if (screen == NULL)
     {
         fprintf(stderr, "SDL_GetWindowSurface Error: %s\n", SDL_GetError());
-        return false;
+        return 0;
     }
     SDL_UpdateWindowSurface(window);
 
