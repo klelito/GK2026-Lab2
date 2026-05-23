@@ -202,7 +202,7 @@ void Funkcja3()
 
     SDL_UpdateWindowSurface(window);
 }
-// algorytm Floyd-Steinberg
+// algorytm Floyd-Steinberga
 void Funkcja4()
 {
     SDL_Color kolor;
@@ -210,7 +210,7 @@ void Funkcja4()
     Uint8 szaryOrg;
     Uint8 piksel;
     Uint8 przesuniecie = 1;
-    float bledy[(szerokosc / 2) + 2][wysokosc + 2];
+    float bledy[(szerokosc / 2) + 2][(wysokosc / 2) + 2];
     memset(bledy, 0, sizeof(bledy));
     int blad = 0;
 
@@ -219,12 +219,36 @@ void Funkcja4()
         for (int x = 0; x < 320; x++)
         {
             kolor = getPixel(x, y);
+
             szaryOrg = 0.299 * kolor.r + 0.587 * kolor.g + 0.114 * kolor.b;
             szary = szaryOrg + bledy[x + przesuniecie][y];
+
+            if (szary < 0)
+                szary = 0;
+            if (szary > 255)
+                szary = 255;
+
             setPixel(x, y, szaryOrg, szaryOrg, szaryOrg);
+
+            if (szary > 127)
+            {
+                piksel = 255;
+                blad = szary - 255;
+            }
+            else
+            {
+                piksel = 0;
+                blad = szary;
+            }
+
+            setPixel(x + szerokosc / 2, y, piksel, piksel, piksel);
+
+            bledy[x + 1 + przesuniecie][y] += (blad * 7.0 / 16.0);
+            bledy[x - 1 + przesuniecie][y + 1] += (blad * 3.0 / 16.0);
+            bledy[x + przesuniecie][y + 1] += (blad * 5.0 / 16.0);
+            bledy[x + 1 + przesuniecie][y + 1] += (blad * 1.0 / 16.0);
         }
     }
-    //...
 
     SDL_UpdateWindowSurface(window);
 }
