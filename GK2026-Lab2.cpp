@@ -227,8 +227,10 @@ void Funkcja4()
                 szary = 0;
             if (szary > 255)
                 szary = 255;
+            setPixel(x, y + wysokosc / 2, szary, szary, szary);
 
-            setPixel(x, y, szaryOrg, szaryOrg, szaryOrg);
+            // setPixel(x, y, szaryOrg, szaryOrg, szaryOrg);
+            
 
             if (szary > 127)
             {
