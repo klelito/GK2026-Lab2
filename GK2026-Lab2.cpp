@@ -12,7 +12,7 @@ SDL_Surface *screen = NULL;
 #define szerokosc 640
 #define wysokosc 400
 
-#define tytul "GK2026 - Lab 2 - Nazwisko Imie"
+#define tytul "GK2026 - Lab 2 - Lelito Kacper"
 
 void setPixel(int x, int y, Uint8 R, Uint8 G, Uint8 B);
 SDL_Color getPixel(int x, int y);
@@ -230,7 +230,6 @@ void Funkcja4()
             setPixel(x, y + wysokosc / 2, szary, szary, szary);
 
             // setPixel(x, y, szaryOrg, szaryOrg, szaryOrg);
-            
 
             if (szary > 127)
             {
@@ -257,16 +256,76 @@ void Funkcja4()
 
 void Funkcja5()
 {
+    SDL_Color kolor;
+    Uint8 R;
+    Uint8 G;
+    Uint8 B;
 
-    //...
+    for (int y = 0; y < 200; y++)
+    {
+        for (int x = 0; x < 320; x++)
+        {
+            kolor = getPixel(x, y);
+
+            // Progowanie kazdej skladowej RGB osobno.
+            if (kolor.r > 127)
+                R = 255;
+            else
+                R = 0;
+
+            if (kolor.g > 127)
+                G = 255;
+            else
+                G = 0;
+
+            if (kolor.b > 127)
+                B = 255;
+            else
+                B = 0;
+
+            setPixel(x + szerokosc / 2, y, R, G, B);
+        }
+    }
 
     SDL_UpdateWindowSurface(window);
 }
 
 void Funkcja6()
 {
+    int rozmiar = 4;
+    zaktualizujTabliceBayera4();
+    SDL_Color kolor;
+    Uint8 R;
+    Uint8 G;
+    Uint8 B;
+    float prog;
 
-    //...
+    for (int y = 0; y < 200; y++)
+    {
+        for (int x = 0; x < 320; x++)
+        {
+            kolor = getPixel(x, y);
+            prog = zaktualizowanaTablicaBayera4[y % rozmiar][x % rozmiar];
+
+            // Ten sam prog Bayera stosujemy niezaleznie dla R, G i B.
+            if (kolor.r > prog)
+                R = 255;
+            else
+                R = 0;
+
+            if (kolor.g > prog)
+                G = 255;
+            else
+                G = 0;
+
+            if (kolor.b > prog)
+                B = 255;
+            else
+                B = 0;
+
+            setPixel(x + szerokosc / 2, y, R, G, B);
+        }
+    }
 
     SDL_UpdateWindowSurface(window);
 }
