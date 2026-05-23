@@ -206,25 +206,54 @@ void Funkcja3()
 void Funkcja4()
 {
     SDL_Color kolor;
-    int szary;
     Uint8 szaryOrg;
     Uint8 piksel;
-    Uint8 przesuniecie = 1;
-    float bledy[(szerokosc / 2) + 2][wysokosc + 2];
-    memset(bledy, 0, sizeof(bledy));
-    int blad = 0;
+    const int przesuniecie = 1;
 
-    for (int y = 0; y < 200; y++)
+    /* bledy[y][x] - przechowuje skorygowane wartosci szarosci */
+    float bledy[(wysokosc / 2) + 2][(szerokosc / 2) + 2];
+    memset(bledy, 0, sizeof(bledy));
+
+    for (int y = 0; y < (wysokosc / 2); y++)
     {
-        for (int x = 0; x < 320; x++)
+        for (int x = 0; x < (szerokosc / 2); x++)
         {
             kolor = getPixel(x, y);
             szaryOrg = 0.299 * kolor.r + 0.587 * kolor.g + 0.114 * kolor.b;
-            szary = szaryOrg + bledy[x + przesuniecie][y];
+
+            /* uwzgledniamy blad z poprzednich pixeli */
+            float szaryF = szaryOrg + bledy[y][x + przesuniecie];
+            int szary = (int)(szaryF + 0.5f);
+            if (szary < 0)
+                szary = 0;
+            if (szary > 255)
+                szary = 255;
+
+            /* lewa polowa - oryginalny odcien szarosci */
             setPixel(x, y, szaryOrg, szaryOrg, szaryOrg);
+
+            /* progowanie do 0/255 dla prawej polowy */
+            if (szary > 127)
+                piksel = 255;
+            else
+                piksel = 0;
+
+            int blad = szary - piksel;
+            setPixel(x + szerokosc / 2, y, piksel, piksel, piksel);
+
+            /* rozklad bledu (Floyd-Steinberg)
+               na nastepujace piksele:
+               x+1,y     -> 7/16
+               x-1,y+1   -> 3/16
+               x,y+1     -> 5/16
+               x+1,y+1   -> 1/16
+            */
+            bledy[y][x + przesuniecie + 1] += blad * 7.0f / 16.0f;
+            bledy[y + 1][x + przesuniecie - 1] += blad * 3.0f / 16.0f;
+            bledy[y + 1][x + przesuniecie] += blad * 5.0f / 16.0f;
+            bledy[y + 1][x + przesuniecie + 1] += blad * 1.0f / 16.0f;
         }
     }
-    //...
 
     SDL_UpdateWindowSurface(window);
 }
