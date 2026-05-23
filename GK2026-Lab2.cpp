@@ -103,7 +103,31 @@ void Funkcja1()
 
 void Funkcja2()
 {
+    int rozmiar = 2;
+    zaktualizujTabliceBayera2();
+    SDL_Color kolor;
+    Uint8 szary;
+    Uint8 piksel;
+    Uint8 tablica;
 
+    for (int y = 0; y < 200; y++)
+    {
+        for (int x = 0; x < 320; x++)
+        {
+            kolor = getPixel(x, y);
+            szary = 0.299 * kolor.r + 0.587 * kolor.g + 0.114 * kolor.b;
+            setPixel(x, y, szary, szary, szary);
+
+            tablica = zaktualizowanaTablicaBayera2[y % rozmiar][x % rozmiar];
+            if (szary > tablica)
+                piksel = 255;
+            else
+            {
+                piksel = 0;
+            }
+            setPixel(x + szerokosc / 2, y, piksel, piksel, piksel);
+        }
+    }
     //...
 
     SDL_UpdateWindowSurface(window);
