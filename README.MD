@@ -107,7 +107,7 @@ GK2026-Lab2/
 ├── obrazek4.bmp          # Przykładowy obraz testowy
 ├── obrazek5.bmp          # Przykładowy obraz testowy
 └── obrazek6.bmp          # Przykładowy obraz testowy
-
+```
 ---
 
 ## Wymagania i konfiguracja SDL2
