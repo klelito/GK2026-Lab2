@@ -19,6 +19,7 @@ Laboratorium: **Lab 2**
     - [Wczytywanie obrazów](#wczytywanie-obrazów)
     - [Uruchamianie funkcji](#uruchamianie-funkcji)
   - [Struktura projektu](#struktura-projektu)
+  - [Wymagania i konfiguracja SDL2](#wymagania-i-konfiguracja-sdl2)
 
 ---
 
@@ -106,3 +107,63 @@ GK2026-Lab2/
 ├── obrazek4.bmp          # Przykładowy obraz testowy
 ├── obrazek5.bmp          # Przykładowy obraz testowy
 └── obrazek6.bmp          # Przykładowy obraz testowy
+
+---
+
+## Wymagania i konfiguracja SDL2
+
+Projekt został przygotowany do pracy z biblioteką **SDL2** zainstalowaną lokalnie w systemie. Zalecanym sposobem instalacji SDL2 na macOS jest użycie menedżera pakietów **Homebrew**.
+
+Do poprawnej kompilacji projektu wymagane są:
+
+- kompilator C/C++, np. `clang++`,
+- biblioteka **SDL2**,
+- narzędzie `sdl2-config`,
+- środowisko uruchomieniowe zgodne z SDL2,
+- opcjonalnie Visual Studio Code z przygotowaną konfiguracją w katalogu `.vscode`.
+
+Zalecana instalacja SDL2 na macOS:
+
+~~~bash
+brew install sdl2
+~~~
+
+Projekt korzysta z systemowej instalacji SDL2, a nie z bibliotek dołączonych bezpośrednio do repozytorium. W praktyce oznacza to, że podczas kompilacji używane są ścieżki oraz flagi kompilatora zwracane przez polecenie:
+
+~~~bash
+sdl2-config --cflags --libs
+~~~
+
+Takie rozwiązanie jest bardziej stabilne i ogranicza problemy kompilacyjne wynikające z niezgodności wersji bibliotek, architektury procesora lub ścieżek do plików nagłówkowych.
+
+W repozytorium mogą znajdować się katalogi lub pliki związane z SDL2, środowiskiem Code::Blocks albo wcześniejszymi próbami konfiguracji projektu. Należy traktować je jako **artefakty projektu** lub pozostałości konfiguracyjne, a nie jako główne źródło biblioteki wykorzystywanej podczas budowania programu.
+
+Aktualny sposób uruchamiania projektu zakłada korzystanie z SDL2 zainstalowanego przez Homebrew. Dzięki temu konfiguracja jest prostsza, bardziej przenośna na macOS i mniej podatna na typowe błędy, takie jak:
+
+- brak pliku nagłówkowego `SDL.h`,
+- nieprawidłowe ścieżki include,
+- konflikt między różnymi wersjami SDL,
+- problem z linkowaniem biblioteki,
+- niezgodność architektury bibliotek, np. Apple Silicon vs Intel.
+
+Przykładowa komenda kompilacji:
+
+~~~bash
+mkdir -p build
+clang++ -std=c++17 -g NAZWA_PLIKU.cpp -o build/NAZWA_PROGRAMU $(sdl2-config --cflags --libs)
+~~~
+
+Przykład dla konkretnego laboratorium:
+
+~~~bash
+mkdir -p build
+clang++ -std=c++17 -g GK2026-LabX.cpp -o build/GK2026-LabX $(sdl2-config --cflags --libs)
+~~~
+
+Uruchomienie programu:
+
+~~~bash
+./build/GK2026-LabX
+~~~
+
+W powyższych komendach należy zastąpić `GK2026-LabX` właściwą nazwą projektu, np. `GK2026-Lab2`, `GK2026-Lab3` albo `GK2026-Lab4`.
